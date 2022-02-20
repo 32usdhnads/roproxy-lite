@@ -68,6 +68,9 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	defer fasthttp.ReleaseRequest(req)
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)
+	
+	console.log(`URL IS: ${url}`)
+	
 	req.SetRequestURI("https://" + url[0] + ".roblox.com/" + url[1])
 	req.SetBody(ctx.Request.Body())
 	ctx.Request.Header.VisitAll(func (key, value []byte) {
